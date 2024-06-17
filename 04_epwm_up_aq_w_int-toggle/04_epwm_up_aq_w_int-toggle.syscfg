@@ -1,0 +1,37 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "F28003x" --package "100PZ" --part "F28003x_100PZ" --context "system" --product "C2000WARE@5.02.00.00"
+ * @versions {"tool":"1.20.0+3587"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const epwm  = scripting.addModule("/driverlib/epwm.js", {}, false);
+const epwm1 = epwm.addInstance();
+const gpio  = scripting.addModule("/driverlib/gpio.js", {}, false);
+const gpio1 = gpio.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+epwm1.$name                                                    = "myEPWM1";
+epwm1.epwmCounterCompare_cmpA                                  = 50;
+epwm1.epwmTimebase_hsClockDiv                                  = "EPWM_HSCLOCK_DIVIDER_1";
+epwm1.epwmEventTrigger_enableInterrupt                         = true;
+epwm1.epwmEventTrigger_interruptSource                         = "EPWM_INT_TBCTR_ZERO";
+epwm1.epwmEventTrigger_interruptEventCount                     = "3";
+epwm1.epwmTimebase_counterMode                                 = "EPWM_COUNTER_MODE_UP";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_PERIOD  = "EPWM_AQ_OUTPUT_HIGH";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_UP_CMPA = "EPWM_AQ_OUTPUT_LOW";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_B_ON_TIMEBASE_PERIOD  = "EPWM_AQ_OUTPUT_LOW";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_B_ON_TIMEBASE_UP_CMPA = "EPWM_AQ_OUTPUT_HIGH";
+epwm1.epwmTimebase_period                                      = 1200;
+epwm1.epwm.$assign                                             = "EPWM1";
+epwm1.epwm.epwm_aPin.$assign                                   = "GPIO0";
+epwm1.epwm.epwm_bPin.$assign                                   = "GPIO1";
+
+gpio1.$name           = "myGPIO33";
+gpio1.direction       = "GPIO_DIR_MODE_OUT";
+gpio1.gpioPin.$assign = "GPIO33";
