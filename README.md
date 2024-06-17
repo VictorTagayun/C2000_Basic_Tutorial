@@ -1,3 +1,5 @@
+# My Initial Learning with C2000 from TI specifically using LAUNCHXL-F280039C
+
 ## Project files  
 
 	* 01_gpio_toggle 		  = Toggle a GPIO
