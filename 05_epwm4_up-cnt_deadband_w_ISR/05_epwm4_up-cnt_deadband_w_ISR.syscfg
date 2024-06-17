@@ -1,0 +1,67 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "F28003x" --package "100PZ" --part "F28003x_100PZ" --context "system" --product "C2000WARE@5.02.00.00"
+ * @versions {"tool":"1.20.0+3587"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const epwm  = scripting.addModule("/driverlib/epwm.js", {}, false);
+const epwm1 = epwm.addInstance();
+const gpio  = scripting.addModule("/driverlib/gpio.js", {}, false);
+const gpio1 = gpio.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+epwm1.epwmDeadband_polarityFED                                 = "EPWM_DB_POLARITY_ACTIVE_LOW";
+epwm1.epwmDeadband_enableRED                                   = true;
+epwm1.epwmDeadband_enableFED                                   = true;
+epwm1.epwmCounterCompare_cmpA                                  = 500;
+epwm1.copyFrom                                                 = "myEPWM1";
+epwm1.epwmTimebase_hsClockDiv                                  = "EPWM_HSCLOCK_DIVIDER_1";
+epwm1.epwmDeadband_delayRED                                    = 60;
+epwm1.epwmDeadband_delayFED                                    = 60;
+epwm1.epwmTimebase_period                                      = 1200;
+epwm1.epwmTimebase_counterMode                                 = "EPWM_COUNTER_MODE_UP";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_UP_CMPA = "EPWM_AQ_OUTPUT_LOW";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_A_ON_TIMEBASE_PERIOD  = "EPWM_AQ_OUTPUT_HIGH";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_B_ON_TIMEBASE_UP_CMPA = "EPWM_AQ_OUTPUT_HIGH";
+epwm1.epwmActionQualifier_EPWM_AQ_OUTPUT_B_ON_TIMEBASE_PERIOD  = "EPWM_AQ_OUTPUT_LOW";
+epwm1.epwmTimebase_syncInPulseSource                           = "EPWM_SYNC_IN_PULSE_SRC_DISABLE";
+epwm1.$name                                                    = "myEPWM4";
+epwm1.epwmEventTrigger_enableInterrupt                         = true;
+epwm1.epwmEventTrigger_interruptSource                         = "EPWM_INT_TBCTR_U_CMPA";
+epwm1.epwmEventTrigger_registerInterrupts                      = true;
+epwm1.epwmEventTrigger_interruptEventCount                     = "3";
+epwm1.epwm.$assign                                             = "EPWM4";
+epwm1.epwm.epwm_aPin.$assign                                   = "GPIO6";
+epwm1.epwm.epwm_bPin.$assign                                   = "GPIO7";
+epwm1.epwmInt.enableInterrupt                                  = true;
+
+gpio1.$name             = "myGPIO33";
+gpio1.direction         = "GPIO_DIR_MODE_OUT";
+gpio1.writeInitialValue = true;
+gpio1.gpioPin.$assign   = "GPIO33";
+
+/**
+ * These are the reserved peripherals and settings in this configuration
+ */
+const iEPWM1 = scripting.addPeripheral("EPWM");
+iEPWM1.$name = "MyEPWM1";
+const iEPWM2 = scripting.addPeripheral("EPWM");
+iEPWM2.$name = "MyEPWM2";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+iEPWM1.$suggestSolution            = "EPWM2";
+iEPWM1["EPWM#_A"].$suggestSolution = "GPIO2";
+iEPWM1["EPWM#_B"].$suggestSolution = "GPIO3";
+iEPWM2.$suggestSolution            = "EPWM1";
+iEPWM2["EPWM#_A"].$suggestSolution = "GPIO0";
+iEPWM2["EPWM#_B"].$suggestSolution = "GPIO1";
